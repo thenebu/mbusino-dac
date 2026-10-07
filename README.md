@@ -58,3 +58,7 @@ pio run -t upload       # flash, board in boot mode: hold 0, tap RST
 Libraries are taken from `~/Documents/Arduino/libraries`: ESP Async WebServer (ESP32Async), Async TCP, MBusCom, MBusinoLib, PubSubClient, ArduinoJson, OneWire, DallasTemperature, Adafruit BME280.
 
 Code: `src/MBusino5S-DAC/dac.h` (driver, MQTT/HA, fail-safe), hooks in `MBusino5S-DAC.ino` and `mqtt.h`.
+
+## License and credits
+
+GPL-3.0, see [LICENSE](LICENSE). This is a derivative of [MBusino](https://github.com/Zeppelin500/MBusino) by Zeppelin500, which is GPL-3.0 too, so this fork has to stay under the same license. The DAC protocol was checked against [DFRobot_GP8403](https://github.com/DFRobot/DFRobot_GP8403).
