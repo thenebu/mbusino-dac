@@ -7,20 +7,22 @@ Everything else (M-Bus, DS18B20, BME280, web GUI, OTA) works as in MBusino5S. Ve
 
 ## Wiring (ESP32-S2 mini ↔ DFR0971)
 
+The DFR0971 (GP8403, 2 channels, 12 bit, 0–10 V, short-circuit protected, error < 0.5 %) runs from 3.3–5 V and has a Gravity PH2.0-4P I2C connector. No separate high-voltage supply is needed.
+
 ```
- S2 mini                 DFR0971
- --------                --------
- 3V3 ------------------- VCC (I2C side, 3.3 V logic)
+ S2 mini                 DFR0971 (Gravity 4P)
+ --------                --------------------
+ 3V3 ------------------- VCC (3.3-5 V)
  GND ------------------- GND
  GPIO33 (SDA) ---------- SDA
  GPIO35 (SCL) ---------- SCL
 
-                         VIN / GND (power terminal) <- 12-36 V supply, see datasheet
-                         VOUT0 / VOUT1              -> 0-10 V to the heat pump (0-10 V input + GND)
+                         VOUT0 / VOUT1 -> 0-10 V to the heat pump (analog input + GND)
 ```
 
-- Check the pin names and supply voltage against the DFRobot datasheet of your module, I wired this from the schematic description and have not verified it on hardware yet.
-- The I2C address is 0x58 (default). The BME280 (0x76) can share the same bus.
+- Check the pin labels on the module before soldering, the wiring is taken from the DFRobot spec, not yet tried on hardware.
+- I2C address: 0x58 by default, selectable 0x58–0x5F with the DIP switches on the module. The firmware only looks for 0x58.
+- The BME280 (0x76) can share the same bus.
 - GPIO33/35 are also the OneWire buses 7 and 6. With `extension = 7` (7x DS18B20 without BME) the DAC is disabled. Use `extension` 5 or 0.
 - The DAC is searched at boot and every 30 s afterwards, so it can also be connected later.
 
