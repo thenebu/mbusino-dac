@@ -20,7 +20,8 @@ The DFR0971 (GP8403, 2 channels, 12 bit, 0–10 V, short-circuit protected, erro
                          VOUT0 / VOUT1 -> 0-10 V to the heat pump (analog input + GND)
 ```
 
-- Check the pin labels on the module before soldering, the wiring is taken from the DFRobot spec, not yet tried on hardware.
+- Wiring is taken from the DFRobot wiki, not yet tried on hardware. The I2C protocol (range register 0x01 = 0x11, channel registers 0x02/0x04, 12 bit shifted left by 4, low byte first) matches the DFRobot_GP8403 library.
+- Product page: https://wiki.dfrobot.com/dfr0971
 - I2C address: 0x58 by default, selectable 0x58–0x5F with the DIP switches on the module. The firmware only looks for 0x58.
 - The BME280 (0x76) can share the same bus.
 - GPIO33/35 are also the OneWire buses 7 and 6. With `extension = 7` (7x DS18B20 without BME) the DAC is disabled. Use `extension` 5 or 0.
